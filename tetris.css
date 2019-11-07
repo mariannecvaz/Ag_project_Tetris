@@ -1,8 +1,14 @@
+
+@font-face {
+    font-family: NEW TETRIS;
+    src: url(../Ag_project_Tetris/NEW.ttf);
+}
+
 html,body{
-    background-color: blue;
+    background-color: #ffcc00;
 }
 #myCanvas{
-    border:solid 3px orange;
+    border:solid 3px blue;
     background-color: black;
     padding: 0;
     width: 400px;
@@ -11,12 +17,51 @@ html,body{
     right: 700px;
     top: 20px;
 }
-.container{
-    border:solid 3px orange;
+#my2Canvas{
+    border:solid 3px blue;
     background-color: black;
-    width: 0px;
-    height: 50px;
+    width: 300px;
+    height: 300px;
     position: absolute;
+    right: 350px;
+    top: 250px;
+}
+#logo {
+    width: 250px;
+    height: auto;
+    position: absolute;
+    right: 375px;
     top: 20px;
-    right: 0px;
+}
+#level {
+    color: white;
+    position: absolute;
+    right: 530px;
+    top: 300px;
+    font-size: 30px;
+    font-family: NEW TETRIS;
+}
+#score {
+    color: white;
+    position: absolute;
+    right: 530px;
+    top: 400px;
+    font-size: 30px;
+    font-family: NEW TETRIS;
+}
+#btn1 {
+    position: absolute;
+    border-color: blue;
+    background-color: black;
+    color: white;
+    right: 530px;
+    top: 480px;
+}
+#btn2 {
+    position: absolute;
+    border-color: blue;
+    background-color: black;
+    color: white;
+    right: 400px;
+    top: 480px;
 }
