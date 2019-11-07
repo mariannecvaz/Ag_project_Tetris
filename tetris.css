@@ -5,7 +5,17 @@
 }
 
 html,body{
-    background-color: #ffcc00;
+    color: white;
+    max-width: 100%;
+    overflow-x: hidden;
+    width: 100%;
+    background-image: url('./Imagens/fundo.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    z-index: -3;
+    height: 900px;
 }
 #myCanvas{
     border:solid 3px blue;
@@ -36,7 +46,7 @@ html,body{
 #level {
     color: white;
     position: absolute;
-    right: 530px;
+    right: 500px;
     top: 300px;
     font-size: 30px;
     font-family: NEW TETRIS;
@@ -44,8 +54,8 @@ html,body{
 #score {
     color: white;
     position: absolute;
-    right: 530px;
-    top: 400px;
+    right: 500px;
+    top: 380px;
     font-size: 30px;
     font-family: NEW TETRIS;
 }
@@ -54,14 +64,19 @@ html,body{
     border-color: blue;
     background-color: black;
     color: white;
-    right: 530px;
+    right: 520px;
     top: 480px;
+    font-family: NEW TETRIS;
+    font-size: 20px;
 }
 #btn2 {
     position: absolute;
     border-color: blue;
     background-color: black;
     color: white;
-    right: 400px;
+    right: 370px;
     top: 480px;
+    font-family: NEW TETRIS;
+    font-size: 20px;
 }
+
