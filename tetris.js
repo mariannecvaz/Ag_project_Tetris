@@ -13,6 +13,7 @@ let y3
 let x4
 let y4
 
+let stop = false;
 
 
 // const row = 20;
@@ -62,9 +63,9 @@ class Piece {
             this.y3 = 0;
             this.x4 = 190;
             this.y4 = 0;
-        } 
+        }
         //Quadrado
-        else if (this.shape == 1){
+        else if (this.shape == 1) {
             this.x1 = 130;
             this.y1 = 0;
             this.x2 = 160;
@@ -75,7 +76,7 @@ class Piece {
             this.y4 = 30;
         }
         //T
-        else if (this.shape == 2){
+        else if (this.shape == 2) {
             this.x1 = 100;
             this.y1 = 0;
             this.x2 = 130;
@@ -86,7 +87,7 @@ class Piece {
             this.y4 = 30;
         }
         //Z
-        else if (this.shape == 3){
+        else if (this.shape == 3) {
             this.x1 = 100;
             this.y1 = 0;
             this.x2 = 130;
@@ -97,7 +98,7 @@ class Piece {
             this.y4 = 30;
         }
         //L
-        else if (this.shape == 4){
+        else if (this.shape == 4) {
             this.x1 = 100;
             this.y1 = 0;
             this.x2 = 130;
@@ -108,7 +109,7 @@ class Piece {
             this.y4 = -30;
         }
         //S
-        else if (this.shape == 5){
+        else if (this.shape == 5) {
             this.x1 = 100;
             this.y1 = 30;
             this.x2 = 130;
@@ -119,7 +120,7 @@ class Piece {
             this.y4 = 0;
         }
         //Bota
-        else if (this.shape == 6){
+        else if (this.shape == 6) {
             this.x1 = 100;
             this.y1 = -30;
             this.x2 = 100;
@@ -144,14 +145,14 @@ class Piece {
         if (this.shape == 3)
             ctx.fillStyle = "orange"
 
-        if(this.shape == 4)
+        if (this.shape == 4)
             ctx.fillStyle = "blue"
 
-        if(this.shape == 5)
+        if (this.shape == 5)
             ctx.fillStyle = "purple"
 
-        if(this.shape == 6)
-            ctx.fillStyle ="cyan"
+        if (this.shape == 6)
+            ctx.fillStyle = "cyan"
 
         ctx.fillRect(this.x1, this.y1, 30, 30);
         ctx.strokeStyle = 'black';
@@ -167,27 +168,38 @@ class Piece {
         ctx.strokeStyle = 'black';
         ctx.strokeRect(this.x3, this.y3, 30, 30);
         ctx.lineWidth = 3;
-        
+
         ctx.fillRect(this.x4, this.y4, 30, 30);
         ctx.strokeStyle = 'black';
         ctx.strokeRect(this.x4, this.y4, 30, 30);
         ctx.lineWidth = 3;
-        
+
 
 
     }
     update() {
-        this.y1 += 30;
-        this.y2 += 30;
-        this.y3 += 30;
-        this.y4 += 30;
+
+
+        if (this.y1 + 30 === H || this.y2 + 30 === H || this.y3 + 30 === H || this.y4 + 30 === H) {
+            this.stop = true;
+        }
+        else {
+            this.y1 += 30;
+            this.y2 += 30;
+            this.y3 += 30;
+            this.y4 += 30;
+        }
 
     }
 }
 
+let shape = 0
+
 let pieces = new Array();
-pieces.push(new Piece(6))
+pieces.push(new Piece(shape))
 pieces[0].createPiece();
+
+
 
 function render() {
     //ctx.fillStyle = "red"
@@ -195,11 +207,18 @@ function render() {
 
 
     pieces.forEach(function (piece) {
+       
         piece.draw();
         piece.update();
+        if(pieces[pieces.length-1].stop){
+            console.log("cbbc");
+            shape = Math.floor(Math.random() * 6)
+        }
     })
-    //window.requestAnimationFrame(render)
+
+
+
 }
-setInterval(render, 500);
+setInterval(render, 100);
 
 
