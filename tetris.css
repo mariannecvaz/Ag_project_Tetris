@@ -21,8 +21,8 @@ html,body{
     border:solid 3px blue;
     background-color: black;
     padding: 0;
-    width: 400px;
-    height: 600px;
+    /* width: 300px;
+    height: 600px; */
     position: absolute;
     right: 700px;
     top: 20px;

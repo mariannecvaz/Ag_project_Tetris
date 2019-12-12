@@ -4,23 +4,202 @@ const ctx = canvas.getContext("2d");
 const W = canvas.width;
 const H = canvas.height;
 
-class piece {
-    constructor(x, y) {
-        this.x = x
-        this.y = y
-        this.g = 0.05
+let x1
+let y1
+let x2
+let y2
+let x3
+let y3
+let x4
+let y4
+
+
+
+// const row = 20;
+// const col = column = 10;
+// const sq = squareSize = 55;
+// const vacant = "black"; // color of an empty square
+
+// function drawBoard() {
+//     for (r = 0; r < row; r++) {
+//         for (c = 0; c < col; c++) {
+//             drawSquare(c, r, board[r][c]);
+//         }
+//     }
+// }
+
+// function drawSquare(x, y, color) {
+//     ctx1.fillStyle = color;
+//     ctx1.fillRect(x * sq, y * sq, sq, sq);
+
+//     ctx1.strokeStyle = "white";
+//     ctx1.strokeRect(x * sq, y * sq, sq, sq);
+// }
+
+// let board = [];
+// for (r = 0; r < row; r++) {
+//     board[r] = [];
+//     for (c = 0; c < col; c++) {
+//         board[r][c] = vacant;
+//     }
+// }
+
+
+
+class Piece {
+    constructor(shape) {
         this.shape = shape
-        this.color = color
-        this.dy = 0
     }
+    createPiece() {
+
+        //Barra
+        if (this.shape == 0) {
+            this.x1 = 100;
+            this.y1 = 0;
+            this.x2 = 130;
+            this.y2 = 0;
+            this.x3 = 160;
+            this.y3 = 0;
+            this.x4 = 190;
+            this.y4 = 0;
+        } 
+        //Quadrado
+        else if (this.shape == 1){
+            this.x1 = 130;
+            this.y1 = 0;
+            this.x2 = 160;
+            this.y2 = 0;
+            this.x3 = 130;
+            this.y3 = 30;
+            this.x4 = 160;
+            this.y4 = 30;
+        }
+        //T
+        else if (this.shape == 2){
+            this.x1 = 100;
+            this.y1 = 0;
+            this.x2 = 130;
+            this.y2 = 0;
+            this.x3 = 160;
+            this.y3 = 0;
+            this.x4 = 130;
+            this.y4 = 30;
+        }
+        //Z
+        else if (this.shape == 3){
+            this.x1 = 100;
+            this.y1 = 0;
+            this.x2 = 130;
+            this.y2 = 0;
+            this.x3 = 160;
+            this.y3 = 30;
+            this.x4 = 130;
+            this.y4 = 30;
+        }
+        //L
+        else if (this.shape == 4){
+            this.x1 = 100;
+            this.y1 = 0;
+            this.x2 = 130;
+            this.y2 = 0;
+            this.x3 = 160;
+            this.y3 = 0;
+            this.x4 = 160;
+            this.y4 = -30;
+        }
+        //S
+        else if (this.shape == 5){
+            this.x1 = 100;
+            this.y1 = 30;
+            this.x2 = 130;
+            this.y2 = 30;
+            this.x3 = 160;
+            this.y3 = 0;
+            this.x4 = 130;
+            this.y4 = 0;
+        }
+        //Bota
+        else if (this.shape == 6){
+            this.x1 = 100;
+            this.y1 = -30;
+            this.x2 = 100;
+            this.y2 = 0;
+            this.x3 = 130;
+            this.y3 = 0;
+            this.x4 = 160;
+            this.y4 = 0;
+        }
+    }
+
     draw() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.rect(this.x, this.y, 5, 5);
-        ctx.fill();
+        if (this.shape == 0)
+            ctx.fillStyle = 'red';
+
+        if (this.shape == 1)
+            ctx.fillStyle = 'yellow'
+
+        if (this.shape == 2)
+            ctx.fillStyle = "green"
+
+        if (this.shape == 3)
+            ctx.fillStyle = "orange"
+
+        if(this.shape == 4)
+            ctx.fillStyle = "blue"
+
+        if(this.shape == 5)
+            ctx.fillStyle = "purple"
+
+        if(this.shape == 6)
+            ctx.fillStyle ="cyan"
+
+        ctx.fillRect(this.x1, this.y1, 30, 30);
+        ctx.strokeStyle = 'black';
+        ctx.strokeRect(this.x1, this.y1, 30, 30);
+        ctx.lineWidth = 3;
+
+        ctx.fillRect(this.x2, this.y2, 30, 30);
+        ctx.strokeStyle = 'black';
+        ctx.strokeRect(this.x2, this.y2, 30, 30);
+        ctx.lineWidth = 3;
+
+        ctx.fillRect(this.x3, this.y3, 30, 30);
+        ctx.strokeStyle = 'black';
+        ctx.strokeRect(this.x3, this.y3, 30, 30);
+        ctx.lineWidth = 3;
+        
+        ctx.fillRect(this.x4, this.y4, 30, 30);
+        ctx.strokeStyle = 'black';
+        ctx.strokeRect(this.x4, this.y4, 30, 30);
+        ctx.lineWidth = 3;
+        
+
 
     }
     update() {
+        this.y1 += 30;
+        this.y2 += 30;
+        this.y3 += 30;
+        this.y4 += 30;
 
     }
 }
+
+let pieces = new Array();
+pieces.push(new Piece(6))
+pieces[0].createPiece();
+
+function render() {
+    //ctx.fillStyle = "red"
+    ctx.clearRect(0, 0, W, H)
+
+
+    pieces.forEach(function (piece) {
+        piece.draw();
+        piece.update();
+    })
+    //window.requestAnimationFrame(render)
+}
+setInterval(render, 500);
+
+
