@@ -179,7 +179,6 @@ class Piece {
     }
     update() {
 
-
         if (this.y1 + 30 === H || this.y2 + 30 === H || this.y3 + 30 === H || this.y4 + 30 === H) {
             this.stop = true;
         }
@@ -193,26 +192,24 @@ class Piece {
     }
 }
 
-let shape = 0
-
 let pieces = new Array();
-pieces.push(new Piece(shape))
-pieces[0].createPiece();
+function initializePiece() {
+    let shape = Math.floor(Math.random() * 6)
+    pieces.push(new Piece(shape))
+    pieces[0].createPiece();
+}
 
-
+initializePiece()
 
 function render() {
     //ctx.fillStyle = "red"
     ctx.clearRect(0, 0, W, H)
-
-
     pieces.forEach(function (piece) {
-       
         piece.draw();
         piece.update();
-        if(pieces[pieces.length-1].stop){
+        if (pieces[pieces.length - 1].stop) {
             console.log("cbbc");
-            shape = Math.floor(Math.random() * 6)
+            initializePiece()
         }
     })
 
