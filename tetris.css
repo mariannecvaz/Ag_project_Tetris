@@ -15,7 +15,7 @@ html,body{
     background-size: cover;
     position: absolute;
     z-index: -3;
-    height: 900px;
+    height: 100%;
 }
 #myCanvas{
     border:solid 3px blue;

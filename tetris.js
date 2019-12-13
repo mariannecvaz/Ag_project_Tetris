@@ -18,7 +18,7 @@ let stop = false;
 
 // const row = 20;
 // const col = column = 10;
-// const sq = squareSize = 55;
+// const sq = squareSize = 30;
 // const vacant = "black"; // color of an empty square
 
 // function drawBoard() {
@@ -55,79 +55,79 @@ class Piece {
 
         //Barra
         if (this.shape == 0) {
-            this.x1 = 100;
+            this.x1 = 120;
             this.y1 = 0;
-            this.x2 = 130;
+            this.x2 = 150;
             this.y2 = 0;
-            this.x3 = 160;
+            this.x3 = 180;
             this.y3 = 0;
-            this.x4 = 190;
+            this.x4 = 210;
             this.y4 = 0;
         }
         //Quadrado
         else if (this.shape == 1) {
-            this.x1 = 130;
+            this.x1 = 150;
             this.y1 = 0;
-            this.x2 = 160;
+            this.x2 = 180;
             this.y2 = 0;
-            this.x3 = 130;
+            this.x3 = 150;
             this.y3 = 30;
-            this.x4 = 160;
+            this.x4 = 180;
             this.y4 = 30;
         }
         //T
         else if (this.shape == 2) {
-            this.x1 = 100;
+            this.x1 = 120;
             this.y1 = 0;
-            this.x2 = 130;
+            this.x2 = 150;
             this.y2 = 0;
-            this.x3 = 160;
+            this.x3 = 180;
             this.y3 = 0;
-            this.x4 = 130;
+            this.x4 = 150;
             this.y4 = 30;
         }
         //Z
         else if (this.shape == 3) {
-            this.x1 = 100;
+            this.x1 = 120;
             this.y1 = 0;
-            this.x2 = 130;
+            this.x2 = 150;
             this.y2 = 0;
-            this.x3 = 160;
+            this.x3 = 180;
             this.y3 = 30;
-            this.x4 = 130;
+            this.x4 = 150;
             this.y4 = 30;
         }
         //L
         else if (this.shape == 4) {
-            this.x1 = 100;
+            this.x1 = 120;
             this.y1 = 0;
-            this.x2 = 130;
+            this.x2 = 150;
             this.y2 = 0;
-            this.x3 = 160;
+            this.x3 = 180;
             this.y3 = 0;
-            this.x4 = 160;
+            this.x4 = 180;
             this.y4 = -30;
         }
         //S
         else if (this.shape == 5) {
-            this.x1 = 100;
+            this.x1 = 120;
             this.y1 = 30;
-            this.x2 = 130;
+            this.x2 = 150;
             this.y2 = 30;
-            this.x3 = 160;
+            this.x3 = 180;
             this.y3 = 0;
-            this.x4 = 130;
+            this.x4 = 150;
             this.y4 = 0;
         }
         //Bota
         else if (this.shape == 6) {
-            this.x1 = 100;
+            this.x1 = 120;
             this.y1 = -30;
-            this.x2 = 100;
+            this.x2 = 120;
             this.y2 = 0;
-            this.x3 = 130;
+            this.x3 = 150;
             this.y3 = 0;
-            this.x4 = 160;
+            this.x4 = 180;
             this.y4 = 0;
         }
     }
@@ -174,8 +174,6 @@ class Piece {
         ctx.strokeRect(this.x4, this.y4, 30, 30);
         ctx.lineWidth = 3;
 
-
-
     }
     update() {
 
@@ -188,7 +186,6 @@ class Piece {
             this.y3 += 30;
             this.y4 += 30;
         }
-
     }
 }
 
@@ -210,16 +207,49 @@ function render() {
             initializePiece()
         }
     })
-
-
-
 }
-setInterval(render, 100);
+setInterval(render, 500);
 
-document.addEventListener('keyright', function (event) {
-    x1 += 30
-    x2 += 30
-    x3 += 30
-    x4 += 30
-})
+window.addEventListener('keydown', ArrowPressed);
+window.addEventListener('keyup', ArrowReleased);
 
+function ArrowPressed(e) {
+    if (e.key == 'ArrowRight' && pieces[pieces.length - 1].x1 + 30 < W && pieces[pieces.length - 1].x2 + 30 < W &&
+        pieces[pieces.length - 1].x3 + 30 < W && pieces[pieces.length - 1].x4 + 30 < W) {
+
+        pieces[pieces.length - 1].x1 += 30;
+        pieces[pieces.length - 1].x2 += 30;
+        pieces[pieces.length - 1].x3 += 30;
+        pieces[pieces.length - 1].x4 += 30;
+    }
+
+    if (e.key == 'ArrowLeft' && pieces[pieces.length - 1].x1 >= 30 && pieces[pieces.length - 1].x2 >= 30 &&
+        pieces[pieces.length - 1].x3 >= 30 && pieces[pieces.length - 1].x4 >= 30) {
+
+        pieces[pieces.length - 1].x1 -= 30;
+        pieces[pieces.length - 1].x2 -= 30;
+        pieces[pieces.length - 1].x3 -= 30;
+        pieces[pieces.length - 1].x4 -= 30;
+    }
+
+    if (e.key == 'ArrowDown') {
+
+        pieces[pieces.length - 1].y1 += 30;
+        pieces[pieces.length - 1].y2 += 30;
+        pieces[pieces.length - 1].y3 += 30;
+        pieces[pieces.length - 1].y4 += 30;
+    }
+}
+function ArrowReleased(e) {
+    if (e.key == 'ArrowRight' || e.key == 'ArrowLeft'
+        || e.key == 'ArrowUp') {
+    }
+    if (e.key == 'ArrowDown' && pieces[pieces.length - 1].y1 + 30 == H && pieces[pieces.length - 1].y2 + 30 == H &&
+    pieces[pieces.length - 1].y3 + 30 == H && pieces[pieces.length - 1].y4 + 30 == H) {
+
+        pieces[pieces.length - 1].y1 -= 30;
+        pieces[pieces.length - 1].y2 -= 30;
+        pieces[pieces.length - 1].y3 -= 30;
+        pieces[pieces.length - 1].y4 -= 30;
+    }
+}
