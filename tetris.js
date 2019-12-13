@@ -196,19 +196,17 @@ let pieces = new Array();
 function initializePiece() {
     let shape = Math.floor(Math.random() * 6)
     pieces.push(new Piece(shape))
-    pieces[0].createPiece();
+    pieces[pieces.length - 1].createPiece();
 }
 
 initializePiece()
 
 function render() {
-    //ctx.fillStyle = "red"
     ctx.clearRect(0, 0, W, H)
     pieces.forEach(function (piece) {
         piece.draw();
         piece.update();
         if (pieces[pieces.length - 1].stop) {
-            console.log("cbbc");
             initializePiece()
         }
     })
@@ -218,4 +216,10 @@ function render() {
 }
 setInterval(render, 100);
 
+document.addEventListener('keyright', function (event) {
+    x1 += 30
+    x2 += 30
+    x3 += 30
+    x4 += 30
+})
 
