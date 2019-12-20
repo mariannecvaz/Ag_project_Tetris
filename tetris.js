@@ -130,6 +130,16 @@ class Piece {
             this.x4 = 180;
             this.y4 = 0;
         }
+        else if (this.shape == 7) {
+            this.x1 = 180;
+            this.y1 = 0;
+            this.x2 = 210;
+            this.y2 = 30;
+            this.x3 = 240;
+            this.y3 = 60;
+            this.x4 = 270;
+            this.y4 = 90;
+        }
     }
 
     draw() {
@@ -153,6 +163,9 @@ class Piece {
 
         if (this.shape == 6)
             ctx.fillStyle = "cyan"
+
+        if (this.shape == 7)
+            ctx.fillStyle = "red"
 
         ctx.fillRect(this.x1, this.y1, 30, 30);
         ctx.strokeStyle = 'black';
@@ -190,25 +203,30 @@ class Piece {
 }
 
 let pieces = new Array();
+let shape
 function initializePiece() {
-    let shape = Math.floor(Math.random() * 6)
+    shape = Math.floor(Math.random() * 6)
     pieces.push(new Piece(shape))
     pieces[pieces.length - 1].createPiece();
 }
 
 initializePiece()
-
+let frameCounter = 0
+let s = 10
 function render() {
-    ctx.clearRect(0, 0, W, H)
-    pieces.forEach(function (piece) {
-        piece.draw();
-        piece.update();
-        if (pieces[pieces.length - 1].stop) {
-            initializePiece()
-        }
-    })
+    frameCounter++
+    if (frameCounter % s == 0) {
+        ctx.clearRect(0, 0, W, H)
+        pieces.forEach(function (piece) {
+            piece.draw();
+            piece.update();
+            if (pieces[pieces.length - 1].stop) {
+                initializePiece()
+            }
+        })
+    }
 }
-setInterval(render, 500);
+setInterval(render, 50);
 
 window.addEventListener('keydown', ArrowPressed);
 window.addEventListener('keyup', ArrowReleased);
@@ -233,23 +251,19 @@ function ArrowPressed(e) {
     }
 
     if (e.key == 'ArrowDown') {
-
-        pieces[pieces.length - 1].y1 += 30;
-        pieces[pieces.length - 1].y2 += 30;
-        pieces[pieces.length - 1].y3 += 30;
-        pieces[pieces.length - 1].y4 += 30;
+        s = 2
+    }
+    if (e.key == 'ArrowUp') {
+        if (shape == 0) {
+            shape===7
+        }
     }
 }
 function ArrowReleased(e) {
     if (e.key == 'ArrowRight' || e.key == 'ArrowLeft'
         || e.key == 'ArrowUp') {
     }
-    if (e.key == 'ArrowDown' && pieces[pieces.length - 1].y1 + 30 == H && pieces[pieces.length - 1].y2 + 30 == H &&
-    pieces[pieces.length - 1].y3 + 30 == H && pieces[pieces.length - 1].y4 + 30 == H) {
-
-        pieces[pieces.length - 1].y1 -= 30;
-        pieces[pieces.length - 1].y2 -= 30;
-        pieces[pieces.length - 1].y3 -= 30;
-        pieces[pieces.length - 1].y4 -= 30;
+    if (e.key == 'ArrowDown') {
+        s = 10
     }
 }
