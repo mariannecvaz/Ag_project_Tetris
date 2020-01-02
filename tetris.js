@@ -15,6 +15,8 @@ let y4
 
 let stop = false;
 
+let takenY = []
+let takenX = []
 
 // const row = 20;
 // const col = column = 10;
@@ -131,7 +133,6 @@ class Piece {
             this.y4 = 0;
         }
     }
-
     draw() {
         if (this.shape == 0)
             ctx.fillStyle = 'red';
@@ -180,15 +181,49 @@ class Piece {
     }
     update() {
 
-        if (this.y1 + 30 === H || this.y2 + 30 === H || this.y3 + 30 === H || this.y4 + 30 === H) {
-            this.stop = true;
+        takenX.push(this.x1)
+        takenX.push(this.x2)
+        takenX.push(this.x3)
+        takenX.push(this.x4)
+
+        takenY.push(this.y1)
+        takenY.push(this.y2)
+        takenY.push(this.y3)
+        takenY.push(this.y4)
+
+
+        if (pieces.length > 1) {
+            for (let j = 0; j < 4; j++) {
+                for (let i = 0; i < pieces.length - 1; i++) {
+                    if ((((takenY[j] + 30) == pieces[i].y1 && takenX[j] == pieces[i].x1) || ((takenY[j] + 30) == pieces[i].y2 && takenX[j] == pieces[i].x2) ||
+                        ((takenY[j] + 30) == pieces[i].y3 && takenX[j] == pieces[i].x3) || ((takenY[j] + 30) == pieces[i].y4 && takenX[j] == pieces[i].x4)) &&
+                        this.stop != true) {
+                        this.stop = true
+                    }
+                }
+            }
+
+            takenX = []
+            takenY = []
         }
-        else {
+        if ((this.y1 + 30 === H || this.y2 + 30 === H || this.y3 + 30 === H || this.y4 + 30 === H) && this.stop != true) {
+            this.stop = true;
+           
+
+            takenX = []
+            takenY = []
+        }
+        else if (this.stop != true) {
+            takenX = []
+            takenY = []
             this.y1 += 30;
             this.y2 += 30;
             this.y3 += 30;
             this.y4 += 30;
+
+
         }
+
     }
     rotate() {
         if (this.shape == 0) {
@@ -246,8 +281,8 @@ class Piece {
                 this.rotation = 0
             }
         }
-        if(this.shape == 3){
-            if(this.rotation==0){
+        if (this.shape == 3) {
+            if (this.rotation == 0) {
                 this.x1 = this.x2
                 this.y1 = this.y2 - 30
                 this.x3 = this.x2 - 30
@@ -255,7 +290,7 @@ class Piece {
                 this.x4 = this.x2 - 30
                 this.y4 = this.y3 - 30
                 this.rotation = 1
-            } else if( this.rotation ==1 ){
+            } else if (this.rotation == 1) {
                 this.x1 = this.x2 + 30
                 this.y1 = this.y2
                 this.x3 = this.x2 + 30
@@ -266,15 +301,15 @@ class Piece {
             }
         }
         if (this.shape == 4) {
-            if ( this.rotation==0 ) {
+            if (this.rotation == 0) {
                 this.x1 = this.x2
                 this.y1 = this.y2 - 30
                 this.x3 = this.x2
                 this.y3 = this.y2 + 30
                 this.x4 = this.x3 - 30
                 this.y4 = this.y1
-                this.rotation = 1  
-            } else if (this.rotation == 1){
+                this.rotation = 1
+            } else if (this.rotation == 1) {
                 this.x1 = this.x2 - 30
                 this.y1 = this.y2
                 this.x3 = this.x2 + 30
@@ -282,7 +317,7 @@ class Piece {
                 this.x4 = this.x3
                 this.y4 = this.y1 - 30
                 this.rotation = 2
-            } else if (this.rotation == 2){
+            } else if (this.rotation == 2) {
                 this.x1 = this.x2
                 this.y1 = this.y2 - 30
                 this.x3 = this.x2
@@ -292,8 +327,8 @@ class Piece {
                 this.rotation = 0
             }
         }
-        if (this.shape == 5){
-            if(this.rotation==0){
+        if (this.shape == 5) {
+            if (this.rotation == 0) {
                 this.x1 = this.x2
                 this.y1 = this.y2 + 30
                 this.x3 = this.x2 + 30
@@ -302,7 +337,7 @@ class Piece {
                 this.y4 = this.y3 + 30
                 this.rotation = 1
             }
-            else if(this.rotation == 1){
+            else if (this.rotation == 1) {
                 this.x1 = this.x2 + 30
                 this.y1 = this.y2
                 this.x3 = this.x2 + 30
@@ -312,8 +347,8 @@ class Piece {
                 this.rotation = 0
             }
         }
-        if(this.shape==6){
-            if(this.rotation==0){
+        if (this.shape == 6) {
+            if (this.rotation == 0) {
                 this.x1 = this.x2
                 this.y1 = this.y2 - 30
                 this.x3 = this.x2
@@ -322,7 +357,7 @@ class Piece {
                 this.y4 = this.y3
                 this.rotation = 1
             }
-            else if(this.rotation==1){
+            else if (this.rotation == 1) {
                 this.x1 = this.x2 - 30
                 this.y1 = this.y2
                 this.x3 = this.x2 + 30
@@ -330,7 +365,7 @@ class Piece {
                 this.x4 = this.x1
                 this.y4 = this.y2 - 30
                 this.rotation = 2
-            }else if(this.rotation==2){
+            } else if (this.rotation == 2) {
                 this.x1 = this.x2
                 this.y1 = this.y2 - 30
                 this.x3 = this.x2
