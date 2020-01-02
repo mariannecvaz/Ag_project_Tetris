@@ -50,9 +50,9 @@ let stop = false;
 class Piece {
     constructor(shape) {
         this.shape = shape
+        this.rotation = 0
     }
     createPiece() {
-
         //Barra
         if (this.shape == 0) {
             this.x1 = 120;
@@ -130,16 +130,6 @@ class Piece {
             this.x4 = 180;
             this.y4 = 0;
         }
-        else if (this.shape == 7) {
-            this.x1 = 180;
-            this.y1 = 0;
-            this.x2 = 210;
-            this.y2 = 30;
-            this.x3 = 240;
-            this.y3 = 60;
-            this.x4 = 270;
-            this.y4 = 90;
-        }
     }
 
     draw() {
@@ -200,6 +190,157 @@ class Piece {
             this.y4 += 30;
         }
     }
+    rotate() {
+        if (this.shape == 0) {
+            if (this.rotation == 0) {
+                this.x1 = this.x2;
+                this.y1 = this.y2 - 30;
+                this.x3 = this.x2;
+                this.y3 = this.y2 + 30;
+                this.x4 = this.x2;
+                this.y4 = this.y2 + 60;
+                this.rotation = 1
+            }
+            else {
+                this.x1 = this.x2 - 30;
+                this.y1 = this.y2
+                this.x3 = this.x2 + 30;
+                this.y3 = this.y2;
+                this.x4 = this.x2 + 60;
+                this.y4 = this.y2;
+                this.rotation = 0
+            }
+        }
+        if (this.shape == 2) {
+            if (this.rotation == 0) {
+                this.x1 = this.x2
+                this.y1 = this.y2 - 30
+                this.x3 = this.x2
+                this.y3 = this.y2 + 30
+                this.x4 = this.x2 - 30
+                this.y4 = this.y2
+                this.rotation = 1
+            } else if (this.rotation == 1) {
+                this.x1 = this.x2 - 30
+                this.y1 = this.y2
+                this.x3 = this.x2 + 30
+                this.y3 = this.y2
+                this.x4 = this.x2
+                this.y4 = this.y2 - 30
+                this.rotation = 2
+            } else if (this.rotation == 2) {
+                this.x1 = this.x2
+                this.y1 = this.y2 - 30
+                this.x3 = this.x2
+                this.y3 = this.y2 + 30
+                this.x4 = this.x2 + 30
+                this.y4 = this.y2
+                this.rotation = 3
+            } else if (this.rotation == 3) {
+                this.x1 = this.x2 - 30
+                this.y1 = this.y2
+                this.x3 = this.x2 + 30
+                this.y3 = this.y2
+                this.x4 = this.x2
+                this.y4 = this.y2 + 30
+                this.rotation = 0
+            }
+        }
+        if(this.shape == 3){
+            if(this.rotation==0){
+                this.x1 = this.x2
+                this.y1 = this.y2 - 30
+                this.x3 = this.x2 - 30
+                this.y3 = this.y2 + 30
+                this.x4 = this.x2 - 30
+                this.y4 = this.y3 - 30
+                this.rotation = 1
+            } else if( this.rotation ==1 ){
+                this.x1 = this.x2 + 30
+                this.y1 = this.y2
+                this.x3 = this.x2 + 30
+                this.y3 = this.y2 + 30
+                this.x4 = this.x3 + 30
+                this.y4 = this.y3
+                this.rotation = 0
+            }
+        }
+        if (this.shape == 4) {
+            if ( this.rotation==0 ) {
+                this.x1 = this.x2
+                this.y1 = this.y2 - 30
+                this.x3 = this.x2
+                this.y3 = this.y2 + 30
+                this.x4 = this.x3 - 30
+                this.y4 = this.y1
+                this.rotation = 1  
+            } else if (this.rotation == 1){
+                this.x1 = this.x2 - 30
+                this.y1 = this.y2
+                this.x3 = this.x2 + 30
+                this.y3 = this.y2
+                this.x4 = this.x3
+                this.y4 = this.y1 - 30
+                this.rotation = 2
+            } else if (this.rotation == 2){
+                this.x1 = this.x2
+                this.y1 = this.y2 - 30
+                this.x3 = this.x2
+                this.y3 = this.y2 + 30
+                this.x4 = this.x3 + 30
+                this.y4 = this.y3
+                this.rotation = 0
+            }
+        }
+        if (this.shape == 5){
+            if(this.rotation==0){
+                this.x1 = this.x2
+                this.y1 = this.y2 + 30
+                this.x3 = this.x2 + 30
+                this.y3 = this.y2 + 30
+                this.x4 = this.x2 + 30
+                this.y4 = this.y3 + 30
+                this.rotation = 1
+            }
+            else if(this.rotation == 1){
+                this.x1 = this.x2 + 30
+                this.y1 = this.y2
+                this.x3 = this.x2 + 30
+                this.y3 = this.y2 - 30
+                this.x4 = this.x3 + 30
+                this.y4 = this.y3
+                this.rotation = 0
+            }
+        }
+        if(this.shape==6){
+            if(this.rotation==0){
+                this.x1 = this.x2
+                this.y1 = this.y2 - 30
+                this.x3 = this.x2
+                this.y3 = this.y2 + 30
+                this.x4 = this.x3 - 30
+                this.y4 = this.y3
+                this.rotation = 1
+            }
+            else if(this.rotation==1){
+                this.x1 = this.x2 - 30
+                this.y1 = this.y2
+                this.x3 = this.x2 + 30
+                this.y3 = this.y2
+                this.x4 = this.x1
+                this.y4 = this.y2 - 30
+                this.rotation = 2
+            }else if(this.rotation==2){
+                this.x1 = this.x2
+                this.y1 = this.y2 - 30
+                this.x3 = this.x2
+                this.y3 = this.y2 + 30
+                this.x4 = this.x3 + 30
+                this.y4 = this.y1
+                this.rotation = 0
+            }
+        }
+    }
 }
 
 let pieces = new Array();
@@ -254,9 +395,7 @@ function ArrowPressed(e) {
         s = 2
     }
     if (e.key == 'ArrowUp') {
-        if (shape == 0) {
-            shape===7
-        }
+        pieces[pieces.length - 1].rotate();
     }
 }
 function ArrowReleased(e) {
@@ -267,3 +406,4 @@ function ArrowReleased(e) {
         s = 10
     }
 }
+
