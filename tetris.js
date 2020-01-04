@@ -53,7 +53,10 @@ class Piece {
     constructor(shape) {
         this.shape = shape
         this.rotation = 0
+        this.leftStop = true
+        this.rightStop = true
     }
+    //posiçoes inicias de cada peça (x,y)
     createPiece() {
         //Barra
         if (this.shape == 0) {
@@ -133,6 +136,7 @@ class Piece {
             this.y4 = 0;
         }
     }
+    //desenha cada peça e especifica a cor de cada uma 
     draw() {
         if (this.shape == 0)
             ctx.fillStyle = 'red';
@@ -179,13 +183,16 @@ class Piece {
         ctx.lineWidth = 3;
 
     }
+    //
     update() {
-
+        
+        //guardar as informaçoes das coordenadas x no array 
         takenX.push(this.x1)
         takenX.push(this.x2)
         takenX.push(this.x3)
         takenX.push(this.x4)
 
+        //guardar as informaçoes das coordenadas y no array 
         takenY.push(this.y1)
         takenY.push(this.y2)
         takenY.push(this.y3)
@@ -200,6 +207,19 @@ class Piece {
                         this.stop != true) {
                         this.stop = true
                     }
+                    if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 + 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 + 30) ||
+                        ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 + 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 + 30)) &&
+                        this.stop != true) {
+                        this.leftStop = false
+                    }
+                    if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 - 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 - 30) ||
+                        ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 - 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 - 30)) &&
+                        this.stop != true) {
+                        this.rightStop = false
+                    }
+                    this.rightStop = true
+                    this.lefttStop = true
+
                 }
             }
 
@@ -208,14 +228,14 @@ class Piece {
         }
         if ((this.y1 + 30 === H || this.y2 + 30 === H || this.y3 + 30 === H || this.y4 + 30 === H) && this.stop != true) {
             this.stop = true;
-           
-
             takenX = []
             takenY = []
         }
+
         else if (this.stop != true) {
             takenX = []
             takenY = []
+
             this.y1 += 30;
             this.y2 += 30;
             this.y3 += 30;
@@ -225,6 +245,7 @@ class Piece {
         }
 
     }
+    //Funçao criada para inicializar a rotaçao de cada peça
     rotate() {
         if (this.shape == 0) {
             if (this.rotation == 0) {
@@ -380,6 +401,8 @@ class Piece {
 
 let pieces = new Array();
 let shape
+
+//seleciona uma peça das 7 possiveis 
 function initializePiece() {
     shape = Math.floor(Math.random() * 6)
     pieces.push(new Piece(shape))
@@ -387,19 +410,26 @@ function initializePiece() {
 }
 
 initializePiece()
+
 let frameCounter = 0
 let s = 10
+
 function render() {
     frameCounter++
+
     if (frameCounter % s == 0) {
         ctx.clearRect(0, 0, W, H)
-        pieces.forEach(function (piece) {
-            piece.draw();
-            piece.update();
-            if (pieces[pieces.length - 1].stop) {
-                initializePiece()
-            }
-        })
+        if (pieces[pieces.length - 1].x1 + 30 < H || pieces[pieces.length - 1].x2 + 30 < H ||
+            pieces[pieces.length - 1].x3 + 30 < H || pieces[pieces.length - 1].x4 + 30 < H) {
+            console.log("IKK")
+            pieces.forEach(function (piece) {
+                piece.draw();
+                piece.update();
+                if (pieces[pieces.length - 1].stop) {
+                    initializePiece()
+                }
+            })
+        }
     }
 }
 setInterval(render, 50);
@@ -408,8 +438,9 @@ window.addEventListener('keydown', ArrowPressed);
 window.addEventListener('keyup', ArrowReleased);
 
 function ArrowPressed(e) {
+
     if (e.key == 'ArrowRight' && pieces[pieces.length - 1].x1 + 30 < W && pieces[pieces.length - 1].x2 + 30 < W &&
-        pieces[pieces.length - 1].x3 + 30 < W && pieces[pieces.length - 1].x4 + 30 < W) {
+        pieces[pieces.length - 1].x3 + 30 < W && pieces[pieces.length - 1].x4 + 30 < W && pieces[pieces.length - 1].rightStop) {
 
         pieces[pieces.length - 1].x1 += 30;
         pieces[pieces.length - 1].x2 += 30;
@@ -417,14 +448,18 @@ function ArrowPressed(e) {
         pieces[pieces.length - 1].x4 += 30;
     }
 
+
+
     if (e.key == 'ArrowLeft' && pieces[pieces.length - 1].x1 >= 30 && pieces[pieces.length - 1].x2 >= 30 &&
-        pieces[pieces.length - 1].x3 >= 30 && pieces[pieces.length - 1].x4 >= 30) {
+        pieces[pieces.length - 1].x3 >= 30 && pieces[pieces.length - 1].x4 >= 30 && pieces[pieces.length - 1].leftStop) {
 
         pieces[pieces.length - 1].x1 -= 30;
         pieces[pieces.length - 1].x2 -= 30;
         pieces[pieces.length - 1].x3 -= 30;
         pieces[pieces.length - 1].x4 -= 30;
     }
+
+
 
     if (e.key == 'ArrowDown') {
         s = 2
@@ -434,8 +469,9 @@ function ArrowPressed(e) {
     }
 }
 function ArrowReleased(e) {
-    if (e.key == 'ArrowRight' || e.key == 'ArrowLeft'
-        || e.key == 'ArrowUp') {
+    if (e.key == 'ArrowRight' || e.key == 'ArrowLeft' || e.key == 'ArrowUp') {
+
+
     }
     if (e.key == 'ArrowDown') {
         s = 10
