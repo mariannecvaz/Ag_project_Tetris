@@ -19,6 +19,7 @@ let gameOver = false;
 let takenY = []
 let takenX = []
 
+// Classe Peça
 class Piece {
     constructor(shape) {
         this.shape = shape
@@ -172,29 +173,33 @@ class Piece {
         if (pieces.length > 1) {
             for (let j = 0; j < 4; j++) {
                 for (let i = 0; i < pieces.length - 1; i++) {
+                    //As peças param no fim do canvas
                     if ((((takenY[j] + 30) == pieces[i].y1 && takenX[j] == pieces[i].x1) || ((takenY[j] + 30) == pieces[i].y2 && takenX[j] == pieces[i].x2) ||
                             ((takenY[j] + 30) == pieces[i].y3 && takenX[j] == pieces[i].x3) || ((takenY[j] + 30) == pieces[i].y4 && takenX[j] == pieces[i].x4)) &&
                         this.stop != true) {
                         this.stop = true
-                        deleteRow()
+                        score()
+                        //Deteta quando uma peça toca no inicio do canvas tendo uma peça por baixo
                         if ((this.y1 <= 0 || this.y2 <= 0 || this.y3 <= 0 || this.y4 <= 0) && this.stop) {
 
                             ctx.clearRect(0, 0, W, H)
 
-                            pieces = []
+                            pieces = [] //Coloca o array a nulo
                             if (document.getElementById("btnPlay").clicked === true) {
-                                initializePiece()
-                            } else {
+                                initializePiece() //cria uma nova peça começando o jogo de novo
+                            } else { //Mostra o game over e o botão para jogar novamente
                                 document.getElementById("btnPlay").style.display = "inline";
                                 document.getElementById("gameOverTxt").style.display = "inline";
                             }
                         }
                     }
+                    //Deteta as colisões do lado esquerdo das peças
                     if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 + 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 + 30) ||
                             ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 + 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 + 30)) &&
                         this.stop != true) {
                         this.leftStop = false
                     }
+                    //Deteta as colisões do lado direito das peças
                     if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 - 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 - 30) ||
                             ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 - 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 - 30)) &&
                         this.stop != true) {
@@ -202,18 +207,17 @@ class Piece {
                     }
                     this.rightStop = true
                     this.lefttStop = true
-
                 }
             }
-
             takenX = []
             takenY = []
         }
+        //Limites do Canvas
         if ((this.y1 + 30 === H || this.y2 + 30 === H || this.y3 + 30 === H || this.y4 + 30 === H) && this.stop != true) {
             this.stop = true;
             takenX = []
             takenY = []
-            deleteRow()
+            score()
         } else if (this.stop != true) {
             takenX = []
             takenY = []
@@ -222,10 +226,7 @@ class Piece {
             this.y2 += 30;
             this.y3 += 30;
             this.y4 += 30;
-
         }
-
-
     }
     //Funçao criada para inicializar a rotaçao de cada peça
     rotate() {
@@ -393,6 +394,7 @@ initializePiece()
 let frameCounter = 0
 let s = 10
 
+// Chama as funções criadas na class
 function render() {
     frameCounter++
     if (frameCounter % s == 0) {
@@ -406,70 +408,63 @@ function render() {
                 initializePiece()
             }
         })
-
-
     }
 }
+
 let deletedRow;
 let deletedCounter;
 let score = 0
 document.getElementById("txtScore").innerHTML = score
-function deleteRow() {
+
+//Função que elimina uma linha quando esta se encontra totalmente preenchida 
+function score() {
 
     for (let p = 585; p >= 15; p -= 30) {
         let newLine = 0
         for (let l = 15; l <= 345; l += 30) {
             let pixel = ctx.getImageData(l, p, 1, 1)
             let color = `rgba( ${pixel.data[0]}, ${pixel.data[1]}, ${pixel.data[2]}, ${pixel.data[3]})`
+
+            //Enquanto detetar um espaço a preto na linha, a peça continua a cair
             if (color === "rgba( 0, 0, 0, 0)") {
 
-            } else {
+            } 
+            else {
                 newLine += 1
                 if (newLine === 12) {
                     deletedCounter++
                     deletedRow = p - 15
 
-                    score += 100
+                    score += 100  //Quando uma linha é eliminada, a pontuação do jogador aumenta 100 pontos
                     document.getElementById("txtScore").innerHTML = score
                   
-
-                    // console.log(points)
-
+                    //Elimina a linha que está completamente preenchida
                     for (let g = 0; g < pieces.length; g++) {
                         if (pieces[g].y1 === p - 15) {
                             pieces[g].x1 = -30
-
                         }
                         if (pieces[g].y2 === p - 15) {
                             pieces[g].x2 = -30
-
                         }
                         if (pieces[g].y3 === p - 15) {
                             pieces[g].x3 = -30
-
                         }
                         if (pieces[g].y4 === p - 15) {
                             pieces[g].x4 = -30
-
                         }
-
                     }
                     break
-
-
                 }
-
             }
-
         }
     }
-    fallAgain();
+    pieceFall();
     deletedRow = 0
     newLine = 0
-
 }
 
-function fallAgain() {
+// Função que permite as peças que estavam em cima da linha eliminada cairem
+function pieceFall() {
 
     for (let g = 0; g < pieces.length; g++) {
         if (pieces[g].y1 < deletedRow) {
@@ -484,17 +479,15 @@ function fallAgain() {
         if (pieces[g].y4 < deletedRow) {
             pieces[g].y4 += 30 * deletedCounter
         }
-
-
     }
     deletedCounter = 0
-
 }
 setInterval(render, 50);
 
 window.addEventListener('keydown', ArrowPressed);
 window.addEventListener('keyup', ArrowReleased);
 
+//Função que dá funcionalidade às teclas
 function ArrowPressed(e) {
 
     if (e.key == 'ArrowRight' && pieces[pieces.length - 1].x1 + 30 < W && pieces[pieces.length - 1].x2 + 30 < W &&
@@ -506,8 +499,6 @@ function ArrowPressed(e) {
         pieces[pieces.length - 1].x4 += 30;
     }
 
-
-
     if (e.key == 'ArrowLeft' && pieces[pieces.length - 1].x1 >= 30 && pieces[pieces.length - 1].x2 >= 30 &&
         pieces[pieces.length - 1].x3 >= 30 && pieces[pieces.length - 1].x4 >= 30 && pieces[pieces.length - 1].leftStop) {
 
@@ -516,8 +507,6 @@ function ArrowPressed(e) {
         pieces[pieces.length - 1].x3 -= 30;
         pieces[pieces.length - 1].x4 -= 30;
     }
-
-
 
     if (e.key == 'ArrowDown') {
         s = 2
@@ -529,9 +518,8 @@ function ArrowPressed(e) {
 
 function ArrowReleased(e) {
     if (e.key == 'ArrowRight' || e.key == 'ArrowLeft' || e.key == 'ArrowUp') {
-
-
     }
+    
     if (e.key == 'ArrowDown') {
         s = 10
     }
