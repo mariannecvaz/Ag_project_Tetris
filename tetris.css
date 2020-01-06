@@ -31,7 +31,7 @@ html,body{
     border:solid 3px blue;
     background-color: black;
     width: 300px;
-    height: 300px;
+    height: 230px;
     position: absolute;
     right: 350px;
     top: 250px;
@@ -43,40 +43,21 @@ html,body{
     right: 375px;
     top: 20px;
 }
-#level {
-    color: white;
-    position: absolute;
-    right: 500px;
-    top: 300px;
-    font-size: 30px;
-    font-family: NEW TETRIS;
-}
 #score {
     color: white;
     position: absolute;
-    right: 500px;
-    top: 380px;
+    right: 520px;
+    top: 280px;
     font-size: 30px;
     font-family: NEW TETRIS;
 }
-#btn1 {
+#btnBack {
     position: absolute;
     border-color: blue;
     background-color: black;
     color: white;
-    right: 520px;
-    top: 480px;
+    right: 440px;
+    top: 370px;
     font-family: NEW TETRIS;
-    font-size: 20px;
+    font-size: 40px;
 }
-#btn2 {
-    position: absolute;
-    border-color: blue;
-    background-color: black;
-    color: white;
-    right: 370px;
-    top: 480px;
-    font-family: NEW TETRIS;
-    font-size: 20px;
-}
-
