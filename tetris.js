@@ -185,7 +185,7 @@ class Piece {
     }
     //
     update() {
-        
+
         //guardar as informaçoes das coordenadas x no array 
         takenX.push(this.x1)
         takenX.push(this.x2)
@@ -206,6 +206,7 @@ class Piece {
                         ((takenY[j] + 30) == pieces[i].y3 && takenX[j] == pieces[i].x3) || ((takenY[j] + 30) == pieces[i].y4 && takenX[j] == pieces[i].x4)) &&
                         this.stop != true) {
                         this.stop = true
+                        deleteRow()
                     }
                     if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 + 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 + 30) ||
                         ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 + 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 + 30)) &&
@@ -230,6 +231,7 @@ class Piece {
             this.stop = true;
             takenX = []
             takenY = []
+            deleteRow()
         }
 
         else if (this.stop != true) {
@@ -240,7 +242,6 @@ class Piece {
             this.y2 += 30;
             this.y3 += 30;
             this.y4 += 30;
-
 
         }
 
@@ -416,21 +417,101 @@ let s = 10
 
 function render() {
     frameCounter++
-
     if (frameCounter % s == 0) {
         ctx.clearRect(0, 0, W, H)
-        if (pieces[pieces.length - 1].x1 + 30 < H || pieces[pieces.length - 1].x2 + 30 < H ||
-            pieces[pieces.length - 1].x3 + 30 < H || pieces[pieces.length - 1].x4 + 30 < H) {
-            console.log("IKK")
+        if (pieces[pieces.length - 1].x1 + 30 < H && pieces[pieces.length - 1].x2 + 30 < H &&
+            pieces[pieces.length - 1].x3 + 30 < H && pieces[pieces.length - 1].x4 + 30 < H) {
+
             pieces.forEach(function (piece) {
                 piece.draw();
                 piece.update();
+
                 if (pieces[pieces.length - 1].stop) {
                     initializePiece()
                 }
             })
         }
+        else {
+            console.log("asa");
+            stop = true
+        }
     }
+}
+let deletedRow;
+let deletedCounter;
+function deleteRow() {
+
+    for (let p = 590; p >= 10; p -= 30) {
+        newLine = 0
+        for (let l = 10; l <= 350; l += 30) {
+            let pixel = ctx.getImageData(l, p, 1, 1)
+            let color = `rgba( ${pixel.data[0]}, ${pixel.data[1]}, ${pixel.data[2]}, ${pixel.data[3]})`
+            if (color === "rgba( 0, 0, 0, 0)") {
+
+            } else {
+                newLine += 1
+                if (newLine === 12) {
+                    deletedCounter++
+                    deletedRow = p - 10
+                    // points += 100
+                    // pointsTxt.innerHTML = points
+
+                    // console.log(points)
+
+                    for (let g = 0; g < pieces.length; g++) {
+                        if (pieces[g].y1 === p - 10) {
+                            pieces[g].x1 = -30
+
+                        }
+                        if (pieces[g].y2 === p - 10) {
+                            pieces[g].x2 = -30
+
+                        }
+                        if (pieces[g].y3 === p - 10) {
+                            pieces[g].x3 = -30
+
+                        }
+                        if (pieces[g].y4 === p - 10) {
+                            pieces[g].x4 = -30
+
+                        }
+
+                    }
+                    break
+
+
+                }
+
+            }
+
+        }
+    }
+    fallAgain();
+    deletedRow = 0
+    newLine = 0
+
+}
+
+function fallAgain() {
+
+    for (let g = 0; g < pieces.length; g++) {
+        if (pieces[g].y1 < deletedRow) {
+            pieces[g].y1 += 30 * deletedCounter
+        }
+        if (pieces[g].y2 < deletedRow) {
+            pieces[g].y2 += 30 * deletedCounter
+        }
+        if (pieces[g].y3 < deletedRow) {
+            pieces[g].y3 += 30 * deletedCounter
+        }
+        if (pieces[g].y4 < deletedRow) {
+            pieces[g].y4 += 30 * deletedCounter
+        }
+
+
+    }
+    deletedCounter = 0
+
 }
 setInterval(render, 50);
 
