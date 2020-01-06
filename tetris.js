@@ -14,6 +14,7 @@ let x4
 let y4
 
 let stop = false;
+let gameOver = false;
 
 let takenY = []
 let takenX = []
@@ -207,6 +208,14 @@ class Piece {
                         this.stop != true) {
                         this.stop = true
                         deleteRow()
+                        if ((this.y1 <= 0 || this.y2 <= 0 || this.y3  <= 0 || this.y4 <= 0) && this.stop) {
+          
+                            pieces = []
+                            initializePiece()
+                            ctx.fillRect()
+
+                
+                        }
                     }
                     if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 + 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 + 30) ||
                         ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 + 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 + 30)) &&
@@ -234,6 +243,8 @@ class Piece {
             deleteRow()
         }
 
+         
+
         else if (this.stop != true) {
             takenX = []
             takenY = []
@@ -244,6 +255,7 @@ class Piece {
             this.y4 += 30;
 
         }
+        
 
     }
     //Funçao criada para inicializar a rotaçao de cada peça
@@ -408,7 +420,7 @@ function initializePiece() {
     shape = Math.floor(Math.random() * 6)
     pieces.push(new Piece(shape))
     pieces[pieces.length - 1].createPiece();
-}
+    }
 
 initializePiece()
 
@@ -419,22 +431,17 @@ function render() {
     frameCounter++
     if (frameCounter % s == 0) {
         ctx.clearRect(0, 0, W, H)
-        if (pieces[pieces.length - 1].x1 + 30 < H && pieces[pieces.length - 1].x2 + 30 < H &&
-            pieces[pieces.length - 1].x3 + 30 < H && pieces[pieces.length - 1].x4 + 30 < H) {
 
-            pieces.forEach(function (piece) {
-                piece.draw();
-                piece.update();
+        pieces.forEach(function (piece) {
+            piece.draw();
+            piece.update();
 
-                if (pieces[pieces.length - 1].stop) {
-                    initializePiece()
-                }
-            })
-        }
-        else {
-            console.log("asa");
-            stop = true
-        }
+            if (pieces[pieces.length - 1].stop) {
+                initializePiece()
+            }
+        })
+        
+        
     }
 }
 let deletedRow;
@@ -452,8 +459,8 @@ function deleteRow() {
                 newLine += 1
                 if (newLine === 12) {
                     deletedCounter++
-                    deletedRow = p - 15 
-                    
+                    deletedRow = p - 15
+
                     // points += 100
                     // pointsTxt.innerHTML = points
 
