@@ -82,3 +82,40 @@ html,body{
     font-family: TETRIS;
     font-size: 40px;
 }
+
+#btnPlay{
+    position: absolute;
+    border-color: blue;
+    background-color: black;
+    color: white;
+    left: 680px;
+    top: 370px;
+    font-family: TETRIS;
+    font-size: 30px;
+    display: none;
+}
+#gameOverTxt{
+    position: absolute;
+    display: none;
+    font-family: NEW TETRIS;
+    color: red;
+    font-size: 50px;
+    left: 620px;
+    top: 300px;
+}
+#txtScore1{
+    position: absolute;
+    font-family: TETRIS;
+    color: white;
+    font-size: 30px;
+    left: 215px;
+    top: 205px;
+}
+#txtScore2{
+    position: absolute;
+    font-family: TETRIS;
+    color: white;
+    font-size: 30px;
+    left: 215px;
+    top: 270px;
+}

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
+    
     <img src="Tetris sem fundo.png" alt="" id="logo">
 
     <canvas id="myCanvas" width="360" height="600">
@@ -20,13 +21,17 @@
     <canvas id="my2Canvas" width="360" height="600">
         Your browser does not support HTML5 Canvas.
     </canvas>
-
     <canvas id="my3Canvas">
         Your browser does not support HTML5 Canvas.
     </canvas>
 
     <p id="score1">Player 1:</p>
+    <label id="txtScore1" ></label>
     <p id="score2">Player 2:</p>
+    <label id="txtScore2" ></label>
+    <p id="gameOverTxt">Game Over</p>
+    <button id="btnPlay" onclick="window.location.href='../Ag_project_Tetris/2player.html'">Play Again</button>
+    
 
     <button id="btnBack" onclick="window.location.href='../Ag_project_Tetris/PgInicial.html'">back</button>
     <!-- Optional JavaScript -->
