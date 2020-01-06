@@ -441,9 +441,9 @@ let deletedRow;
 let deletedCounter;
 function deleteRow() {
 
-    for (let p = 590; p >= 10; p -= 30) {
-        newLine = 0
-        for (let l = 10; l <= 350; l += 30) {
+    for (let p = 585; p >= 15; p -= 30) {
+        let newLine = 0
+        for (let l = 15; l <= 345; l += 30) {
             let pixel = ctx.getImageData(l, p, 1, 1)
             let color = `rgba( ${pixel.data[0]}, ${pixel.data[1]}, ${pixel.data[2]}, ${pixel.data[3]})`
             if (color === "rgba( 0, 0, 0, 0)") {
@@ -452,26 +452,26 @@ function deleteRow() {
                 newLine += 1
                 if (newLine === 12) {
                     deletedCounter++
-                    deletedRow = p - 10
+                    deletedRow = p - 15 
                     // points += 100
                     // pointsTxt.innerHTML = points
 
                     // console.log(points)
 
                     for (let g = 0; g < pieces.length; g++) {
-                        if (pieces[g].y1 === p - 10) {
+                        if (pieces[g].y1 === p - 15) {
                             pieces[g].x1 = -30
 
                         }
-                        if (pieces[g].y2 === p - 10) {
+                        if (pieces[g].y2 === p - 15) {
                             pieces[g].x2 = -30
 
                         }
-                        if (pieces[g].y3 === p - 10) {
+                        if (pieces[g].y3 === p - 15) {
                             pieces[g].x3 = -30
 
                         }
-                        if (pieces[g].y4 === p - 10) {
+                        if (pieces[g].y4 === p - 15) {
                             pieces[g].x4 = -30
 
                         }
