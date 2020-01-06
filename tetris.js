@@ -19,37 +19,6 @@ let gameOver = false;
 let takenY = []
 let takenX = []
 
-// const row = 20;
-// const col = column = 10;
-// const sq = squareSize = 30;
-// const vacant = "black"; // color of an empty square
-
-// function drawBoard() {
-//     for (r = 0; r < row; r++) {
-//         for (c = 0; c < col; c++) {
-//             drawSquare(c, r, board[r][c]);
-//         }
-//     }
-// }
-
-// function drawSquare(x, y, color) {
-//     ctx1.fillStyle = color;
-//     ctx1.fillRect(x * sq, y * sq, sq, sq);
-
-//     ctx1.strokeStyle = "white";
-//     ctx1.strokeRect(x * sq, y * sq, sq, sq);
-// }
-
-// let board = [];
-// for (r = 0; r < row; r++) {
-//     board[r] = [];
-//     for (c = 0; c < col; c++) {
-//         board[r][c] = vacant;
-//     }
-// }
-
-
-
 class Piece {
     constructor(shape) {
         this.shape = shape
@@ -204,26 +173,30 @@ class Piece {
             for (let j = 0; j < 4; j++) {
                 for (let i = 0; i < pieces.length - 1; i++) {
                     if ((((takenY[j] + 30) == pieces[i].y1 && takenX[j] == pieces[i].x1) || ((takenY[j] + 30) == pieces[i].y2 && takenX[j] == pieces[i].x2) ||
-                        ((takenY[j] + 30) == pieces[i].y3 && takenX[j] == pieces[i].x3) || ((takenY[j] + 30) == pieces[i].y4 && takenX[j] == pieces[i].x4)) &&
+                            ((takenY[j] + 30) == pieces[i].y3 && takenX[j] == pieces[i].x3) || ((takenY[j] + 30) == pieces[i].y4 && takenX[j] == pieces[i].x4)) &&
                         this.stop != true) {
                         this.stop = true
                         deleteRow()
-                        if ((this.y1 <= 0 || this.y2 <= 0 || this.y3  <= 0 || this.y4 <= 0) && this.stop) {
-          
-                            pieces = []
-                            initializePiece()
-                            ctx.fillRect()
+                        if ((this.y1 <= 0 || this.y2 <= 0 || this.y3 <= 0 || this.y4 <= 0) && this.stop) {
 
-                
+                            ctx.clearRect(0, 0, W, H)
+
+                            pieces = []
+                            if (document.getElementById("btnPlay").clicked === true) {
+                                initializePiece()
+                            } else {
+                                document.getElementById("btnPlay").style.display = "inline";
+                                document.getElementById("gameOverTxt").style.display = "inline";
+                            }
                         }
                     }
                     if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 + 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 + 30) ||
-                        ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 + 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 + 30)) &&
+                            ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 + 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 + 30)) &&
                         this.stop != true) {
                         this.leftStop = false
                     }
                     if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 - 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 - 30) ||
-                        ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 - 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 - 30)) &&
+                            ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 - 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 - 30)) &&
                         this.stop != true) {
                         this.rightStop = false
                     }
@@ -241,11 +214,7 @@ class Piece {
             takenX = []
             takenY = []
             deleteRow()
-        }
-
-         
-
-        else if (this.stop != true) {
+        } else if (this.stop != true) {
             takenX = []
             takenY = []
 
@@ -255,7 +224,7 @@ class Piece {
             this.y4 += 30;
 
         }
-        
+
 
     }
     //Funçao criada para inicializar a rotaçao de cada peça
@@ -269,8 +238,7 @@ class Piece {
                 this.x4 = this.x2;
                 this.y4 = this.y2 + 60;
                 this.rotation = 1
-            }
-            else {
+            } else {
                 this.x1 = this.x2 - 30;
                 this.y1 = this.y2
                 this.x3 = this.x2 + 30;
@@ -370,8 +338,7 @@ class Piece {
                 this.x4 = this.x2 + 30
                 this.y4 = this.y3 + 30
                 this.rotation = 1
-            }
-            else if (this.rotation == 1) {
+            } else if (this.rotation == 1) {
                 this.x1 = this.x2 + 30
                 this.y1 = this.y2
                 this.x3 = this.x2 + 30
@@ -390,8 +357,7 @@ class Piece {
                 this.x4 = this.x3 - 30
                 this.y4 = this.y3
                 this.rotation = 1
-            }
-            else if (this.rotation == 1) {
+            } else if (this.rotation == 1) {
                 this.x1 = this.x2 - 30
                 this.y1 = this.y2
                 this.x3 = this.x2 + 30
@@ -420,7 +386,7 @@ function initializePiece() {
     shape = Math.floor(Math.random() * 6)
     pieces.push(new Piece(shape))
     pieces[pieces.length - 1].createPiece();
-    }
+}
 
 initializePiece()
 
@@ -440,12 +406,14 @@ function render() {
                 initializePiece()
             }
         })
-        
-        
+
+
     }
 }
 let deletedRow;
 let deletedCounter;
+let score = 0
+document.getElementById("txtScore").innerHTML = score
 function deleteRow() {
 
     for (let p = 585; p >= 15; p -= 30) {
@@ -461,8 +429,9 @@ function deleteRow() {
                     deletedCounter++
                     deletedRow = p - 15
 
-                    // points += 100
-                    // pointsTxt.innerHTML = points
+                    score += 100
+                    document.getElementById("txtScore").innerHTML = score
+                  
 
                     // console.log(points)
 
@@ -557,6 +526,7 @@ function ArrowPressed(e) {
         pieces[pieces.length - 1].rotate();
     }
 }
+
 function ArrowReleased(e) {
     if (e.key == 'ArrowRight' || e.key == 'ArrowLeft' || e.key == 'ArrowUp') {
 
@@ -566,4 +536,3 @@ function ArrowReleased(e) {
         s = 10
     }
 }
-

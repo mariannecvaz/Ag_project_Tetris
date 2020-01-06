@@ -1,0 +1,54 @@
+@font-face {
+    font-family: NEW TETRIS;
+    src: url(../Ag_project_Tetris/NEW.ttf);
+}
+@font-face {
+    font-family: TETRIS;
+    src: url(../Ag_project_Tetris/Tetris2.ttf);
+}
+
+
+html,body{
+    color: white;
+    max-width: 100%;
+    overflow-x: hidden;
+    width: 100%;
+    background-image: url('./fundo.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    z-index: -3;
+    height: 100%;
+}
+#logo1 {
+    width: 450px;
+    height: auto;
+    margin-top: 80px;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+#btn1 {
+    position: absolute;
+    border-color: blue;
+    background-color: black;
+    color: white;
+    right: 750px;
+    top: 480px;
+    font-family: TETRIS;
+    font-size: 40px;
+}
+#btn2 {
+    position: absolute;
+    border-color: blue;
+    background-color: black;
+    color: white;
+    right: 460px;
+    top: 480px;
+    font-family: TETRIS;
+    font-size: 40px;
+}

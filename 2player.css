@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: NEW TETRIS;
     src: url(../Ag_project_Tetris/NEW.ttf);
@@ -34,25 +33,43 @@ html,body{
 #my2Canvas{
     border:solid 3px blue;
     background-color: black;
-    width: 300px;
-    height: 230px;
+    padding: 0;
+    /* width: 300px;
+    height: 600px; */
     position: absolute;
-    right: 350px;
-    top: 250px;
-}
-#logo {
-    width: 250px;
-    height: auto;
-    position: absolute;
-    right: 375px;
+    right: 240px;
     top: 20px;
 }
-#score {
+#my3Canvas{
+    border:solid 3px blue;
+    background-color: black;
+    width: 250px;
+    height: 180px;
+    position: absolute;
+    right: 1120px;
+    top: 180px;
+}
+#logo {
+    width: 130px;
+    height: auto;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+#score1 {
     color: white;
     position: absolute;
-    right: 520px;
+    right: 1250px;
+    top: 220px;
+    font-size: 20px;
+    font-family: NEW TETRIS;
+}
+#score2 {
+    color: white;
+    position: absolute;
+    right: 1250px;
     top: 280px;
-    font-size: 30px;
+    font-size: 20px;
     font-family: NEW TETRIS;
 }
 #btnBack {
@@ -60,36 +77,8 @@ html,body{
     border-color: blue;
     background-color: black;
     color: white;
-    right: 440px;
-    top: 370px;
+    right: 1180px;
+    top: 420px;
     font-family: TETRIS;
     font-size: 40px;
-}
-#btnPlay{
-    position: absolute;
-    border-color: blue;
-    background-color: black;
-    color: white;
-    right: 800px;
-    top: 370px;
-    font-family: TETRIS;
-    font-size: 30px;
-    display: none;
-}
-#gameOverTxt{
-    position: absolute;
-    display: none;
-    font-family: NEW TETRIS;
-    color: red;
-    font-size: 50px;
-    margin-left: 380px;
-    margin-top: 300px;
-}
-#txtScore{
-    position: absolute;
-    font-family: TETRIS;
-    color: white;
-    font-size: 30px;
-    right: 450px;
-    top: 272px;
 }
