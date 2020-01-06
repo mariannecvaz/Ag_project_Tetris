@@ -453,6 +453,7 @@ function deleteRow() {
                 if (newLine === 12) {
                     deletedCounter++
                     deletedRow = p - 15 
+                    
                     // points += 100
                     // pointsTxt.innerHTML = points
 
