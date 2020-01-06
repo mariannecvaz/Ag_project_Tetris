@@ -1,5 +1,4 @@
 // GLOBAL
-
 let x1
 let y1
 let x2
@@ -12,7 +11,6 @@ let y4
 let stop = false;
 let gameOver = false;
 
-
 // JOGADOR 1
 const canvas = document.querySelector('#myCanvas');
 const ctx = canvas.getContext("2d");
@@ -22,9 +20,10 @@ const H = canvas.height;
 
 let takenY = []
 let takenX = []
-let deletedRow;
-let deletedCounter;
+let deletedLine;
+let deletedLineCounter;
 
+//Classe Peça
 class Piece {
     constructor(shape) {
         this.shape = shape
@@ -112,7 +111,7 @@ class Piece {
             this.y4 = 0;
         }
     }
-    //desenha cada peça e especifica a cor de cada uma 
+    //Desenha cada peça e especifica a cor de cada uma 
     draw() {
         if (this.shape == 0)
             ctx.fillStyle = 'red';
@@ -159,9 +158,8 @@ class Piece {
         ctx.lineWidth = 3;
 
     }
-    //
-    update() {
 
+    update() {
         //guardar as informaçoes das coordenadas x no array 
         takenX.push(this.x1)
         takenX.push(this.x2)
@@ -178,61 +176,62 @@ class Piece {
         if (pieces.length > 1) {
             for (let j = 0; j < 4; j++) {
                 for (let i = 0; i < pieces.length - 1; i++) {
+                    //as peças param no fim do canvas
                     if ((((takenY[j] + 30) == pieces[i].y1 && takenX[j] == pieces[i].x1) || ((takenY[j] + 30) == pieces[i].y2 && takenX[j] == pieces[i].x2) ||
-                            ((takenY[j] + 30) == pieces[i].y3 && takenX[j] == pieces[i].x3) || ((takenY[j] + 30) == pieces[i].y4 && takenX[j] == pieces[i].x4)) &&
+                        ((takenY[j] + 30) == pieces[i].y3 && takenX[j] == pieces[i].x3) || ((takenY[j] + 30) == pieces[i].y4 && takenX[j] == pieces[i].x4)) &&
                         this.stop != true) {
                         this.stop = true
-                        deleteRow()
+                        scoreLine()
+                        //deteta quando uma peça toca no inicio do canvas tendo uma peça por baixo
                         if ((this.y1 <= 0 || this.y2 <= 0 || this.y3 <= 0 || this.y4 <= 0) && this.stop) {
 
                             ctx.clearRect(0, 0, W, H)
-
+                            //coloca o array a nulo
                             pieces = []
                             pieces2 = []
+                            //se o botao " Play Again" for clicado
                             if (document.getElementById("btnPlay").clicked === true) {
-                                initializePiece()
+                                initializePiece() //cria uma nova peça começando o jogo de novo
                             } else {
+                                //mostra o game over e o botao para jogar outra vez
                                 document.getElementById("btnPlay").style.display = "inline";
                                 document.getElementById("gameOverTxt").style.display = "inline";
                             }
                         }
                     }
+                    //deteta as colisoes do lado esquerdo das peças 
                     if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 + 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 + 30) ||
-                            ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 + 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 + 30)) &&
+                        ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 + 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 + 30)) &&
                         this.stop != true) {
                         this.leftStop = false
                     }
+                    //deteta as colisoes do lado direito das peças 
                     if ((((takenY[j]) == pieces[i].y1 - 30 && takenX[j] == pieces[i].x1 - 30) || ((takenY[j]) == pieces[i].y2 - 30 && takenX[j] == pieces[i].x2 - 30) ||
-                            ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 - 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 - 30)) &&
+                        ((takenY[j]) == pieces[i].y3 - 30 && takenX[j] == pieces[i].x3 - 30) || (takenY[j] == pieces[i].y4 - 30 && takenX[j] == pieces[i].x4 - 30)) &&
                         this.stop != true) {
                         this.rightStop = false
                     }
                     this.rightStop = true
                     this.lefttStop = true
-
                 }
             }
-
             takenX = []
             takenY = []
         }
+        //limites do canvas
         if ((this.y1 + 30 === H || this.y2 + 30 === H || this.y3 + 30 === H || this.y4 + 30 === H) && this.stop != true) {
             this.stop = true;
             takenX = []
             takenY = []
-            deleteRow()
+            scoreLine()
         } else if (this.stop != true) {
             takenX = []
             takenY = []
-
             this.y1 += 30;
             this.y2 += 30;
             this.y3 += 30;
             this.y4 += 30;
-
         }
-
-
     }
     //Funçao criada para inicializar a rotaçao de cada peça
     rotate() {
@@ -398,39 +397,34 @@ function initializePiece() {
 let score1 = 0
 document.getElementById("txtScore1").innerHTML = score1
 
-function deleteRow() {
-
+//funçao que elimina linha quando preenchida
+function scoreLine() {
     for (let p = 585; p >= 15; p -= 30) {
         let newLine = 0
         for (let l = 15; l <= 345; l += 30) {
             let pixel = ctx.getImageData(l, p, 1, 1)
             let color = `rgba( ${pixel.data[0]}, ${pixel.data[1]}, ${pixel.data[2]}, ${pixel.data[3]})`
             if (color === "rgba( 0, 0, 0, 0)") {
-
+                //enquanto detetar um espaço a preto na linha, a peça continua a cair
             } else {
                 newLine += 1
                 if (newLine === 12) {
-                    deletedCounter++
-                    deletedRow = p - 15
+                    deletedLineCounter++
+                    deletedLine = p - 15
 
-                    score1 += 100
+                    score1 += 100 //quando uma linha é eliminada, a pontuaçao do jogador 1 aumenta 100 pontos
                     document.getElementById("txtScore1").innerHTML = score1
 
-
-                    // console.log(points)
-
+                    //elimina a linha que esta completamente preenchida
                     for (let g = 0; g < pieces.length; g++) {
                         if (pieces[g].y1 === p - 15) {
                             pieces[g].x1 = -30
-
                         }
                         if (pieces[g].y2 === p - 15) {
                             pieces[g].x2 = -30
-
                         }
                         if (pieces[g].y3 === p - 15) {
                             pieces[g].x3 = -30
-
                         }
                         if (pieces[g].y4 === p - 15) {
                             pieces[g].x4 = -30
@@ -441,37 +435,37 @@ function deleteRow() {
             }
         }
     }
-    fallAgain();
-    deletedRow = 0
+    pieceFall();
+    deletedLine = 0
     newLine = 0
 }
-
-function fallAgain() {
+//funçao que permite as peças que estavam em cima da linha que caiam
+function pieceFall() {
 
     for (let g = 0; g < pieces.length; g++) {
-        if (pieces[g].y1 < deletedRow) {
-            pieces[g].y1 += 30 * deletedCounter
+        if (pieces[g].y1 < deletedLine) {
+            pieces[g].y1 += 30 * deletedLineCounter
         }
-        if (pieces[g].y2 < deletedRow) {
-            pieces[g].y2 += 30 * deletedCounter
+        if (pieces[g].y2 < deletedLine) {
+            pieces[g].y2 += 30 * deletedLineCounter
         }
-        if (pieces[g].y3 < deletedRow) {
-            pieces[g].y3 += 30 * deletedCounter
+        if (pieces[g].y3 < deletedLine) {
+            pieces[g].y3 += 30 * deletedLineCounter
         }
-        if (pieces[g].y4 < deletedRow) {
-            pieces[g].y4 += 30 * deletedCounter
+        if (pieces[g].y4 < deletedLine) {
+            pieces[g].y4 += 30 * deletedLineCounter
         }
 
 
     }
-    deletedCounter = 0
+    deletedLineCounter = 0
 
 }
 // Teclas jogador 2
-
 window.addEventListener('keydown', ArrowPressed);
 window.addEventListener('keyup', ArrowReleased);
 
+//Funçao que da funcionalidades as teclas
 function ArrowPressed(e) {
 
     if (e.code == 'KeyD' && pieces[pieces.length - 1].x1 + 30 < W && pieces[pieces.length - 1].x2 + 30 < W &&
@@ -510,7 +504,7 @@ function ArrowPressed(e) {
         pieces2[pieces2.length - 1].x4 -= 30;
     }
 
-    if (e.code == 'KeyS' ) {
+    if (e.code == 'KeyS') {
         s = 2
     }
     if (e.key == 'ArrowDown') {
@@ -519,25 +513,18 @@ function ArrowPressed(e) {
     if (e.code == 'KeyW') {
         pieces[pieces.length - 1].rotate();
     }
-    if ( e.key == 'ArrowUp') {
+    if (e.key == 'ArrowUp') {
         pieces2[pieces2.length - 1].rotate2();
     }
 }
-
 function ArrowReleased(e) {
     if (e.key == 'ArrowRight' || e.key == 'ArrowLeft' || e.key == 'ArrowUp' || e.code == 'KeyD' || e.code == 'KeyA' || e.code == 'KeyW') {
-
-
     }
     if (e.key == 'ArrowDown' || e.code == 'KeyS') {
         s = 10
         s2 = 10
     }
 }
-
-
-
-
 
 
 
@@ -705,32 +692,38 @@ class Piece2 {
         if (pieces2.length > 1) {
             for (let j = 0; j < 4; j++) {
                 for (let i = 0; i < pieces2.length - 1; i++) {
+                    //as peças param no fim do canvas
                     if ((((takenY2[j] + 30) == pieces2[i].y1 && takenX2[j] == pieces2[i].x1) || ((takenY2[j] + 30) == pieces2[i].y2 && takenX2[j] == pieces2[i].x2) ||
-                            ((takenY2[j] + 30) == pieces2[i].y3 && takenX2[j] == pieces2[i].x3) || ((takenY2[j] + 30) == pieces2[i].y4 && takenX2[j] == pieces2[i].x4)) &&
+                        ((takenY2[j] + 30) == pieces2[i].y3 && takenX2[j] == pieces2[i].x3) || ((takenY2[j] + 30) == pieces2[i].y4 && takenX2[j] == pieces2[i].x4)) &&
                         this.stop != true) {
                         this.stop = true
-                        deleteRow2()
+                        scoreLine2()
+                        //deteta quando uma peça toca no inicio do canvas tendo uma peça por baixo
                         if ((this.y1 <= 0 || this.y2 <= 0 || this.y3 <= 0 || this.y4 <= 0) && this.stop) {
 
                             ctx1.clearRect(0, 0, W1, H1)
-
+                            //coloca o array a nulo
                             pieces = []
                             pieces2 = []
+                            //se o botao " Play Again" for clicado
                             if (document.getElementById("btnPlay").clicked === true) {
                                 initializePiece2()
                             } else {
+                                //mostra o game over e o botao para jogar outra vez
                                 document.getElementById("btnPlay").style.display = "inline";
                                 document.getElementById("gameOverTxt").style.display = "inline";
                             }
                         }
                     }
+                    //deteta as colisoes do lado esquerdo das peças 
                     if ((((takenY2[j]) == pieces2[i].y1 - 30 && takenX2[j] == pieces2[i].x1 + 30) || ((takenY2[j]) == pieces2[i].y2 - 30 && takenX2[j] == pieces2[i].x2 + 30) ||
-                            ((takenY2[j]) == pieces2[i].y3 - 30 && takenX2[j] == pieces2[i].x3 + 30) || (takenY2[j] == pieces2[i].y4 - 30 && takenX2[j] == pieces2[i].x4 + 30)) &&
+                        ((takenY2[j]) == pieces2[i].y3 - 30 && takenX2[j] == pieces2[i].x3 + 30) || (takenY2[j] == pieces2[i].y4 - 30 && takenX2[j] == pieces2[i].x4 + 30)) &&
                         this.stop != true) {
                         this.leftStop = false
                     }
+                    //deteta as colisoes do lado direito das peças 
                     if ((((takenY2[j]) == pieces2[i].y1 - 30 && takenX2[j] == pieces2[i].x1 - 30) || ((takenY2[j]) == pieces2[i].y2 - 30 && takenX2[j] == pieces2[i].x2 - 30) ||
-                            ((takenY2[j]) == pieces2[i].y3 - 30 && takenX2[j] == pieces2[i].x3 - 30) || (takenY2[j] == pieces2[i].y4 - 30 && takenX2[j] == pieces2[i].x4 - 30)) &&
+                        ((takenY2[j]) == pieces2[i].y3 - 30 && takenX2[j] == pieces2[i].x3 - 30) || (takenY2[j] == pieces2[i].y4 - 30 && takenX2[j] == pieces2[i].x4 - 30)) &&
                         this.stop != true) {
                         this.rightStop = false
                     }
@@ -743,15 +736,15 @@ class Piece2 {
             takenX2 = []
             takenY2 = []
         }
+        //limites do canvas
         if ((this.y1 + 30 === H1 || this.y2 + 30 === H1 || this.y3 + 30 === H1 || this.y4 + 30 === H1) && this.stop != true) {
             this.stop = true;
             takenX2 = []
             takenY2 = []
-            deleteRow2()
+            scoreLine2()
         } else if (this.stop != true) {
             takenX2 = []
             takenY2 = []
-
             this.y1 += 30;
             this.y2 += 30;
             this.y3 += 30;
@@ -919,32 +912,30 @@ function initializePiece2() {
     pieces2[pieces2.length - 1].createPiece2();
 }
 
-let deletedRow2;
-let deletedCounter2;
+let deletedLine2;
+let deletedLineCounter2;
+
 let score2 = 0
 document.getElementById("txtScore2").innerHTML = score2
 
-function deleteRow2() {
-
+//funçao que elimina linha quando preenchida
+function scoreLine2() {
     for (let p = 585; p >= 15; p -= 30) {
         let newLine = 0
         for (let l = 15; l <= 345; l += 30) {
             let pixel = ctx1.getImageData(l, p, 1, 1)
             let color = `rgba( ${pixel.data[0]}, ${pixel.data[1]}, ${pixel.data[2]}, ${pixel.data[3]})`
             if (color === "rgba( 0, 0, 0, 0)") {
-
+                //enquanto detetar um espaço a preto na linha, a peça continua a cair
             } else {
                 newLine += 1
                 if (newLine === 12) {
-                    deletedCounter2++
-                    deletedRow2 = p - 15
+                    deletedLineCounter2++
+                    deletedLine2 = p - 15
 
-                    score2 += 100
+                    score2 += 100  //quando uma linha é eliminada, a pontuaçao do jogador 1 aumenta 100 pontos
                     document.getElementById("txtScore2").innerHTML = score2
-
-
-                    // console.log(points)
-
+                    //elimina a linha que esta completamente preenchida
                     for (let g = 0; g < pieces2.length; g++) {
                         if (pieces2[g].y1 === p - 15) {
                             pieces2[g].x1 = -30
@@ -968,36 +959,33 @@ function deleteRow2() {
             }
         }
     }
-    fallAgain2();
-    deletedRow2 = 0
+    pieceFall2();
+    deletedLine2 = 0
     newLine = 0
 }
-
-function fallAgain2() {
+//funçao que permite as peças que estavam em cima da linha que caiam
+function pieceFall2() {
 
     for (let g = 0; g < pieces2.length; g++) {
-        if (pieces2[g].y1 < deletedRow2) {
-            pieces2[g].y1 += 30 * deletedCounter2
+        if (pieces2[g].y1 < deletedLine2) {
+            pieces2[g].y1 += 30 * deletedLineCounter2
         }
-        if (pieces2[g].y2 < deletedRow2) {
-            pieces2[g].y2 += 30 * deletedCounter2
+        if (pieces2[g].y2 < deletedLine2) {
+            pieces2[g].y2 += 30 * deletedLineCounter2
         }
-        if (pieces2[g].y3 < deletedRow2) {
-            pieces2[g].y3 += 30 * deletedCounter2
+        if (pieces2[g].y3 < deletedLine2) {
+            pieces2[g].y3 += 30 * deletedLineCounter2
         }
-        if (pieces2[g].y4 < deletedRow2) {
-            pieces2[g].y4 += 30 * deletedCounter2
+        if (pieces2[g].y4 < deletedLine2) {
+            pieces2[g].y4 += 30 * deletedLineCounter2
         }
 
 
     }
-    deletedCounter2 = 0
+    deletedLineCounter2 = 0
 
 }
-
-
-
-// ------------------------------------------------
+// ------------------------------------------------ RENDER -------------------------------------------
 
 initializePiece()
 initializePiece2()
@@ -1008,13 +996,12 @@ let s2 = 10
 
 function render() {
     frameCounter++
+    //utiliza funçoes criadas na classe
     if (frameCounter % s == 0) {
         ctx.clearRect(0, 0, W, H)
-
         pieces.forEach(function (piece) {
             piece.draw();
             piece.update();
-
             if (pieces[pieces.length - 1].stop) {
                 initializePiece()
             }
@@ -1025,7 +1012,6 @@ function render() {
         pieces2.forEach(function (piece2) {
             piece2.draw2();
             piece2.update2();
-
             if (pieces2[pieces2.length - 1].stop) {
                 initializePiece2()
             }
