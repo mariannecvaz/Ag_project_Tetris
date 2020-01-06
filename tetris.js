@@ -178,7 +178,7 @@ class Piece {
                             ((takenY[j] + 30) == pieces[i].y3 && takenX[j] == pieces[i].x3) || ((takenY[j] + 30) == pieces[i].y4 && takenX[j] == pieces[i].x4)) &&
                         this.stop != true) {
                         this.stop = true
-                        score()
+                        scoreLine()
                         //Deteta quando uma peça toca no inicio do canvas tendo uma peça por baixo
                         if ((this.y1 <= 0 || this.y2 <= 0 || this.y3 <= 0 || this.y4 <= 0) && this.stop) {
 
@@ -217,7 +217,7 @@ class Piece {
             this.stop = true;
             takenX = []
             takenY = []
-            score()
+            scoreLines()
         } else if (this.stop != true) {
             takenX = []
             takenY = []
@@ -411,13 +411,13 @@ function render() {
     }
 }
 
-let deletedRow;
+let deletedLineCounter;
 let deletedCounter;
 let score = 0
 document.getElementById("txtScore").innerHTML = score
 
 //Função que elimina uma linha quando esta se encontra totalmente preenchida 
-function score() {
+function scoreLine() {
 
     for (let p = 585; p >= 15; p -= 30) {
         let newLine = 0
@@ -433,7 +433,7 @@ function score() {
                 newLine += 1
                 if (newLine === 12) {
                     deletedCounter++
-                    deletedRow = p - 15
+                    deletedLineCounter = p - 15
 
                     score += 100  //Quando uma linha é eliminada, a pontuação do jogador aumenta 100 pontos
                     document.getElementById("txtScore").innerHTML = score
@@ -459,7 +459,7 @@ function score() {
         }
     }
     pieceFall();
-    deletedRow = 0
+    deletedLineCounter = 0
     newLine = 0
 }
 
@@ -467,16 +467,16 @@ function score() {
 function pieceFall() {
 
     for (let g = 0; g < pieces.length; g++) {
-        if (pieces[g].y1 < deletedRow) {
+        if (pieces[g].y1 < deletedLineCounter) {
             pieces[g].y1 += 30 * deletedCounter
         }
-        if (pieces[g].y2 < deletedRow) {
+        if (pieces[g].y2 < deletedLineCounter) {
             pieces[g].y2 += 30 * deletedCounter
         }
-        if (pieces[g].y3 < deletedRow) {
+        if (pieces[g].y3 < deletedLineCounter) {
             pieces[g].y3 += 30 * deletedCounter
         }
-        if (pieces[g].y4 < deletedRow) {
+        if (pieces[g].y4 < deletedLineCounter) {
             pieces[g].y4 += 30 * deletedCounter
         }
     }
@@ -519,7 +519,7 @@ function ArrowPressed(e) {
 function ArrowReleased(e) {
     if (e.key == 'ArrowRight' || e.key == 'ArrowLeft' || e.key == 'ArrowUp') {
     }
-    
+
     if (e.key == 'ArrowDown') {
         s = 10
     }
