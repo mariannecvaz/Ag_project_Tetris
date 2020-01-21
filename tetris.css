@@ -1,11 +1,11 @@
 
 @font-face {
     font-family: NEW TETRIS;
-    src: url(../Ag_project_Tetris/NEW.ttf);
+    src: url(NEW.ttf);
 }
 @font-face {
     font-family: TETRIS;
-    src: url(../Ag_project_Tetris/Tetris2.ttf);
+    src: url(Tetris2.ttf);
 }
 
 html,body{

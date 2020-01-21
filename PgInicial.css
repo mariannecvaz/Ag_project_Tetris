@@ -1,14 +1,16 @@
 @font-face {
     font-family: NEW TETRIS;
-    src: url(../Ag_project_Tetris/NEW.ttf);
+    src: url(NEW.ttf);
 }
+
 @font-face {
     font-family: TETRIS;
-    src: url(../Ag_project_Tetris/Tetris2.ttf);
+    src: url(Tetris2.ttf);
 }
 
 
-html,body{
+html,
+body {
     color: white;
     max-width: 100%;
     overflow-x: hidden;
@@ -21,17 +23,20 @@ html,body{
     z-index: -3;
     height: 100%;
 }
+
 #logo1 {
     width: 450px;
     height: auto;
     margin-top: 80px;
 }
+
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
 }
+
 #btn1 {
     position: absolute;
     border-color: blue;
@@ -40,8 +45,8 @@ html,body{
     right: 750px;
     top: 480px;
     font-family: TETRIS;
-    font-size: 40px;
 }
+
 #btn2 {
     position: absolute;
     border-color: blue;
@@ -50,5 +55,23 @@ html,body{
     right: 460px;
     top: 480px;
     font-family: TETRIS;
-    font-size: 40px;
+
+}
+
+.svgBtn1:hover {
+    transform: scale(1.1);
+    background-color: blue !important; 
+    transform: rotate(100px, 200px);
+}
+@keyframes rotation{
+    from{
+        transform: rotate(0deg)
+    }
+    to{
+        transform: rotate(360deg)
+    }
+}
+
+.svgBtn1{
+    animation: rotation 10s ease-in infinite;
 }
