@@ -1,42 +1,80 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>TETRIS</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="PgInicial.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
-    <!-- <img src="Tetris sem fundo.png" alt="" class="center" id="logo1"> -->
-    <svg width="50%" height="50%" viewBox="0 0 50 50" id="logo1"> 	 		
-      <image xlink:href="Tetris sem fundo.png" x="0" y="0"  height="40" width="45" />  	
+<head>
+  <title>TETRIS</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="PgInicial.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- <img src="Tetris sem fundo.png" alt="" class="center" id="logo1"> -->
+  <svg width="50%" height="50%" viewBox="0 0 50 50" id="logo1">
+    <image xlink:href="Tetris sem fundo.png" x="0" y="0" height="40" width="45" />
+  </svg>
+
+  <button id="btn1" onclick="window.location.href='tetris.html'" class="svgBtn1">
+    <svg width="250px" height="50px" style="background-color: black;" class="svgBtn12">
+      <text alignmentbaseline="central" text-anchor="middle" font-size="45" class="btnTxt" fill="white" x="50%" y="75%">
+        1 Player
+      </text>
     </svg>
+  </button>
+  <button id="btn2" onclick="window.location.href='2player.html'" class="svgBtn2">
+    <svg width="250px" height="50px" style="background-color: black;">
+      <linearGradient id="frame" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="crimson" />
+        <stop offset="25%" stop-color="orangered" />
+        <stop offset="55%" stop-color="gold" />
+        <stop offset="75%" stop-color="skyblue" />
+        <stop offset="100%" stop-color="purple" />
+      </linearGradient>
+      <linearGradient id="frame2" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="orangered" />
+        <stop offset="25%" stop-color="gold" />
+        <stop offset="55%" stop-color="skyblue" />
+        <stop offset="75%" stop-color="purple" />
+        <stop offset="100%" stop-color="crimson" />
+      </linearGradient>
+      <linearGradient id="frame3" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="gold" />
+        <stop offset="25%" stop-color="skyblue" />
+        <stop offset="55%" stop-color="purple" />
+        <stop offset="75%" stop-color="crimson" />
+        <stop offset="100%" stop-color="orangered" />
+      </linearGradient>
+      <linearGradient id="frame4" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="skyblue" />
+        <stop offset="25%" stop-color="purple" />
+        <stop offset="55%" stop-color="crimson" />
+        <stop offset="75%" stop-color="orangered" />
+        <stop offset="100%" stop-color="gold" />
+      </linearGradient>
+      <text id="btn" alignmentbaseline="central" text-anchor="middle" font-size="45" fill="white" x="50%" y="75%">
+        2 Players </text>
+    </svg>
+  </button>
 
-    <button id="btn1" onclick="window.location.href='tetris.html'" class="svgBtn1">
-      <svg width="250px" height="50px" style="background-color: black;" class="svgBtn1">
-       
-        <text alignmentbaseline="central" text-anchor="middle" font-size="45" fill="white" x="50%" y="75%">
-           1 Player
-         </text>
-        </svg>
-    </button>
-    <button id="btn2" onclick="window.location.href='2player.html'">
-      <svg width="250px" height="50px" style="background-color: black;">
-         <text alignmentbaseline="central" text-anchor="middle" font-size="45" fill="white" x="50%" y="75%">
-          2 Players  </text>
-        </svg>
-      </button>
 
 
-    <!-- Optional JavaScript -->
-    <script src="/PgInicial.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+  <!-- Optional JavaScript -->
+  <script src="/PgInicial.js"></script>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
