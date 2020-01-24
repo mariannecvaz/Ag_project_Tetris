@@ -7,29 +7,98 @@
     font-family: TETRIS;
     src: url(Tetris2.ttf);
 }
-
-
 html,
 body {
-    color: white;
-    max-width: 100%;
-    overflow-x: hidden;
-    width: 100%;
-    background-image: url('./fundo.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: absolute;
-    z-index: -3;
-    height: 100%;
+    background-color: #e7bd1d !important; 
 }
-
+#piece1:hover{
+    fill: #000099;
+}
+#piece2:hover{
+    fill: green;
+}
+#piece3:hover{
+    fill: red;
+}
+#piece4:hover{
+    fill: orange;
+}
+#piece5:hover{
+    fill: purple;
+}
+#piece6:hover{
+    fill: yellow;
+}
+#piece1{
+    fill: #e4922e;
+    transform: scale(2.5); 
+}
+#piece2{
+    fill: #e4922e;
+    transform: scale(2.5); 
+}
+#piece3{
+    fill: #e4922e;
+    transform: scale(2.5); 
+}
+#piece4{
+    fill: #e4922e;
+    transform: scale(2.5); 
+}
+#piece5{
+    fill: #e4922e;
+    transform: scale(2.5); 
+}
+#piece6{
+    fill: #e4922e;
+    transform: scale(2.5); 
+}
 #logo1 {
     position: absolute;
     left: 350px;
-    top: 120px;
+    top: 120px;  position: absolute;
 }
-
+#svgPiece{
+    width: auto;
+    height: 500px;
+    top: 40px;
+    position: relative;
+}
+#svgPiece2{
+    width: auto;
+    height: 400px;
+    left: -190px;
+    top: 330px;
+    position: relative;
+}
+#svgPiece3{
+    width: auto;
+    height: 400px;
+    left: -390px;
+    top: 100px;
+    position: relative;
+}
+#svgPiece4{
+    width: auto;
+    height: 400px;
+    left: 70px;
+    top: -50px;
+    position: relative;
+}
+#svgPiece5{
+    width: auto;
+    height: 400px;
+    left: 1100px;
+    top: -50px;
+    position: relative;
+}
+#svgPiece6{
+    width: auto;
+    height: 400px;
+    left: 600px;
+    top: -250px;
+    position: relative;
+}
 .center {
     display: block;
     margin-left: auto;
