@@ -13,21 +13,28 @@ body {
 }
 #piece1:hover{
     fill: #000099;
+    transform: scale(2.8)
 }
 #piece2:hover{
     fill: green;
+    transform: scale(2.8)
+
 }
 #piece3:hover{
     fill: red;
+    transform: scale(2.8)
 }
 #piece4:hover{
     fill: orange;
+    transform: scale(2.8)
 }
 #piece5:hover{
     fill: purple;
+    transform: scale(2.8)
 }
 #piece6:hover{
     fill: yellow;
+    transform: scale(2.8)
 }
 #piece1{
     fill: #e4922e;
@@ -132,12 +139,10 @@ body {
 
 }
 svg text:hover{
-    /* background-color: white !important; */
     animation: gradiente 1s infinite both alternate-reverse ease-in-out;
 
 }
 .svgBtn1:hover {
-    /* background-color: white !important; */
     animation: shake-bottom 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
